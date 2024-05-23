@@ -1,0 +1,41 @@
+name: Run C++ tests and lint
+
+on:
+  push:
+    branches: ['main']
+  pull_request:
+
+env:
+  BOOST_MINOR_RELEASE: 84
+  BOOST_PATCH_RELEASE: 0
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+        toxenv: ['py3']
+        include:
+          - python-version: '3.12'
+            toxenv: 'lint'
+          - python-version: '3.12'
+            toxenv: 'coverage'
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Install Boost
+      run: |
+        wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${BOOST_MINOR_RELEASE}.${BOOST_PATCH_RELEASE}/source/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}.tar.bz2 | tar xjf -
+        ls
+    - name: Configure
+      run: |
+        cmake -B build -G Ninja .
+    - name: Build
+      run: |
+        cmake --build build
+    - name: Test
+      run: |
+        cmake --test-dir build --output-on-failure
