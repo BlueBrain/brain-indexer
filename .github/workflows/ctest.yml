@@ -26,13 +26,13 @@ jobs:
         submodules: true
 
     - name: Install Ubuntu system dependencies
-      if: startsWith(matrix.os, "ubuntu-")
+      if: startsWith(matrix.os, 'ubuntu-')
       run: |
         sudo apt-get update
         sudo apt-get install ninja-build libopenmpi-dev
 
     - name: Install MacOs system dependencies
-      if: startsWith(matrix.os, "macos-")
+      if: startsWith(matrix.os, 'macos-')
       run: |
         brew install ninja openmpi
 
@@ -60,4 +60,4 @@ jobs:
 
     - name: Test
       run: |
-        ctest --test-dir build --output-on-failure
+        ctest --test-dir uild --output-on-failure
