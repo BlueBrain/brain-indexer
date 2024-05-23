@@ -66,6 +66,11 @@ jobs:
         rmaps_default_mapping_policy = :oversubscribe
         EOF
 
-    - name: Test
+    - name: Run CTest
       run: |
         ctest --test-dir build --output-on-failure
+
+    - name: Run Tox
+      run: |
+        export CMAKE_PREFIX_PATH=$PWD/boost
+        tox -e py3
