@@ -29,7 +29,7 @@ jobs:
     - name: Install system dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install ninja-build
+        sudo apt-get install ninja-build libopenmpi-dev
     - name: Install Boost
       run: |
         wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${BOOST_MINOR_RELEASE}.${BOOST_PATCH_RELEASE}/source/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}.tar.bz2 | tar xjf -
