@@ -33,10 +33,12 @@ jobs:
     - name: Install Boost
       run: |
         wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${BOOST_MINOR_RELEASE}.${BOOST_PATCH_RELEASE}/source/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}.tar.bz2 | tar xjf -
-        ls
+        cd boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}
+        ./boostrap.sh
+        ./b2 --prefix=../boost --with-serialization --with-filesystem install
     - name: Configure
       run: |
-        cmake -B build -G Ninja -DBOOST_ROOT=$PWD/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE} .
+        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=$PWD/boost .
     - name: Build
       run: |
         cmake --build build
