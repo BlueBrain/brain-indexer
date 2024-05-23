@@ -26,13 +26,17 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: true
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install ninja-build
     - name: Install Boost
       run: |
         wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${BOOST_MINOR_RELEASE}.${BOOST_PATCH_RELEASE}/source/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}.tar.bz2 | tar xjf -
         ls
     - name: Configure
       run: |
-        cmake -B build -G Ninja .
+        cmake -B build -G Ninja -DBOOST_ROOT=$PWD/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE} .
     - name: Build
       run: |
         cmake --build build
