@@ -44,4 +44,4 @@ jobs:
         cmake --build build
     - name: Test
       run: |
-        cmake --test-dir build --output-on-failure
+        ctest --test-dir build --output-on-failure
