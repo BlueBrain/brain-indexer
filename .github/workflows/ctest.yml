@@ -34,7 +34,7 @@ jobs:
       run: |
         wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${BOOST_MINOR_RELEASE}.${BOOST_PATCH_RELEASE}/source/boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}.tar.bz2 | tar xjf -
         cd boost_1_${BOOST_MINOR_RELEASE}_${BOOST_PATCH_RELEASE}
-        ./boostrap.sh
+        ./bootstrap.sh
         ./b2 --prefix=../boost --with-serialization --with-filesystem install
     - name: Configure
       run: |
