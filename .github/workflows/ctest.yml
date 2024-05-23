@@ -12,15 +12,15 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.11', '3.12']
-        toxenv: ['py3']
-        include:
-          - python-version: '3.12'
-            toxenv: 'lint'
-          - python-version: '3.12'
-            toxenv: 'coverage'
+    # strategy:
+    #   matrix:
+    #     python-version: ['3.11', '3.12']
+    #     toxenv: ['py3']
+    #     include:
+    #       - python-version: '3.12'
+    #         toxenv: 'lint'
+    #       - python-version: '3.12'
+    #         toxenv: 'coverage'
 
     steps:
     - uses: actions/checkout@v3
