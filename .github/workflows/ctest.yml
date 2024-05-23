@@ -58,6 +58,14 @@ jobs:
         cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=$PWD/boost .
         cmake --build build
 
+    - name: Set up MPI for Github Actions
+      run: |
+        mkdir -p "$HOME/.openmpi"
+        cat <<EOF > "$HOME/.openmpi/mca-params.conf"
+        rmaps_base_oversubscribe = true
+        rmaps_default_mapping_policy = :oversubscribe
+        EOF
+
     - name: Test
       run: |
-        ctest --test-dir uild --output-on-failure
+        ctest --test-dir build --output-on-failure
