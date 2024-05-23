@@ -26,9 +26,15 @@ jobs:
         submodules: true
 
     - name: Install system dependencies
+      if: startsWith(matrix.os, "ubuntu-")
       run: |
         sudo apt-get update
         sudo apt-get install ninja-build libopenmpi-dev
+
+    - name: Install system dependencies
+      if: startsWith(matrix.os, "macos-")
+      run: |
+        brew install ninja openmpi
 
     - name: Cache Boost
       id: cache-boost
