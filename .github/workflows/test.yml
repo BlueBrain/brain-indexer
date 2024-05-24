@@ -1,28 +1,34 @@
 name: Run Python tests and lint
 
 on:
-  workflow_run:
-    workflows: ['Cache Boost']
-    types: ['completed']
+  workflow_call:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
+        os: ["ubuntu-latest", "macos-14"]
+        boost_minor: [85]
         python-version: ['3.11', '3.12']
         toxenv: ['py3']
         include:
-          - python-version: '3.12'
+          - os: 'ubuntu-latest'
+            python-version: '3.12'
             toxenv: 'flake8'
-          - python-version: '3.12'
+          - os: 'ubuntu-latest'
+            python-version: '3.12'
             toxenv: 'coverage'
 
     steps:
     - uses: actions/checkout@v3
-      with:
-        submodules: true
-        token: ${{ secrets.GH_PAT }}
+      # with:
+      #   submodules: true
+
+    - name: FIXME manual submodule checkout 🤌
+      run: |
+        git config --global url.https://x-access-token:${{ secrets.GH_PAT }}@github.com/BlueBrain/brain-indexer-test-data.insteadOf https://github.com/BlueBrain/brain-indexer-test-data.git
+        git submodule update --init --recursive
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
@@ -42,14 +48,6 @@ jobs:
       with:
         path: ${{ github.workspace }}/boost
         key: ${{ matrix.os }}-boost-${{ matrix.boost_minor }}
-
-    - name: Install Boost
-      if: steps.cache-boost.outputs.cache-hit != 'true'
-      run: |
-        wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${{ matrix.boost_minor }}.0/source/boost_1_${{ matrix.boost_minor }}_0.tar.bz2 | tar xjf -
-        cd boost_1_${{ matrix.boost_minor }}_0
-        ./bootstrap.sh
-        ./b2 --prefix=../boost --with-serialization --with-filesystem --with-test install
 
     - name: Install Python dependencies
       run: |
