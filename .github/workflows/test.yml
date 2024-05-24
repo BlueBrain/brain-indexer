@@ -16,9 +16,6 @@ jobs:
           - os: 'ubuntu-latest'
             python-version: '3.12'
             toxenv: 'flake8'
-          - os: 'ubuntu-latest'
-            python-version: '3.12'
-            toxenv: 'coverage'
 
     steps:
     - uses: actions/checkout@v3
@@ -65,13 +62,3 @@ jobs:
         export BOOST_ROOT=$PWD/boost
         export CMAKE_PREFIX_PATH=$PWD/boost
         tox -e ${{ matrix.toxenv }}
-
-    - name: Get coverage
-      if:
-        matrix.toxenv == 'coverage' && github.event_name == 'pull_request'
-      uses: codecov/codecov-action@v4
-      with:
-        fail_ci_if_error: false
-        files: ./coverage.xml
-        flags: pytest
-        name: "brain-indexer-py312"
