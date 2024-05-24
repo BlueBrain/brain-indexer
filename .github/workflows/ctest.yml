@@ -1,9 +1,11 @@
 name: Run C++ tests
 
 on:
-  push:
-    branches: ['main']
-  pull_request:
+  workflow_run:
+    workflows:
+      - Cache Boost
+    types:
+      - completed
 
 jobs:
   build:
@@ -17,6 +19,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         submodules: true
+        token: ${{ secrets.GH_PAT }}
 
     - name: Install Ubuntu system dependencies
       if: startsWith(matrix.os, 'ubuntu-')
@@ -37,14 +40,6 @@ jobs:
       with:
         path: ${{ github.workspace }}/boost
         key: ${{ matrix.os }}-boost-${{ matrix.boost_minor }}
-
-    - name: Install Boost
-      if: steps.cache-boost.outputs.cache-hit != 'true'
-      run: |
-        wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${{ matrix.boost_minor }}.0/source/boost_1_${{ matrix.boost_minor }}_0.tar.bz2 | tar xjf -
-        cd boost_1_${{ matrix.boost_minor }}_0
-        ./bootstrap.sh
-        ./b2 --prefix=../boost --with-serialization --with-filesystem --with-test install
 
     - name: Configure and build
       run: |
