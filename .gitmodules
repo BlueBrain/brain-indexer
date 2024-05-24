@@ -4,6 +4,6 @@
 [submodule "3rdparty/zisa.sfc"]
 	path = 3rdparty/zisa.sfc
 	url = https://github.com/1uc/ZisaSFC.git
-; [submodule "tests/data"]
-; 	path = tests/data
-; 	url = git@bbpgitlab.epfl.ch:hpc/spatial-index-test-data.git
+[submodule "tests/data"]
+	path = tests/data
+	url = https://github.com/BlueBrain/brain-indexer-test-data.git
