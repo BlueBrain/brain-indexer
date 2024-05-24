@@ -1,4 +1,4 @@
-name: Run C++ tests and lint
+name: Run C++ tests
 
 on:
   push:
@@ -12,13 +12,6 @@ jobs:
       matrix:
         os: ["ubuntu-latest", "macos-14"]
         boost_minor: [85]
-    #     python-version: ['3.11', '3.12']
-    #     toxenv: ['py3']
-    #     include:
-    #       - python-version: '3.12'
-    #         toxenv: 'lint'
-    #       - python-version: '3.12'
-    #         toxenv: 'coverage'
 
     steps:
     - uses: actions/checkout@v3
@@ -69,8 +62,3 @@ jobs:
     - name: Run CTest
       run: |
         ctest --test-dir build --output-on-failure
-
-    - name: Run Tox
-      run: |
-        export CMAKE_PREFIX_PATH=$PWD/boost
-        tox -e py3
