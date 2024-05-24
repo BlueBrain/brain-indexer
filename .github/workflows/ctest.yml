@@ -1,11 +1,7 @@
 name: Run C++ tests
 
 on:
-  workflow_run:
-    workflows:
-      - Cache Boost
-    types:
-      - completed
+  workflow_call:
 
 jobs:
   build:
