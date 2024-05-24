@@ -59,6 +59,7 @@ jobs:
 
     - name: Test with tox
       run: |
+        ls -l $PWD/boost
         export BOOST_ROOT=$PWD/boost
         export CMAKE_PREFIX_PATH=$PWD/boost
         tox -e ${{ matrix.toxenv }}
