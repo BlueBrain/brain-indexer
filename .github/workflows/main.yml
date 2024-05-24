@@ -33,6 +33,6 @@ jobs:
         ./b2 --prefix=../boost --with-serialization --with-filesystem --with-test install
 
   test_cxx:
-    needs: [cache_boost]
-    uses: ./.github/workspace/ctest.yml
+    uses: ./.github/workflows/ctest.yml
     secrets: inherit
+    needs: [cache_boost]
