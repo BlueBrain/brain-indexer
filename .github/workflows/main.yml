@@ -1,4 +1,4 @@
-name: Cache Boost, trigger tests
+name: Tests
 
 on:
   push:
