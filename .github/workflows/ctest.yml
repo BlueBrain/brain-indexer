@@ -12,10 +12,13 @@ jobs:
         boost_minor: [85]
 
     steps:
+    - name: FIXME Reconfigure git 🤌
+      run: |
+        git config --global url.https://x-access-token:${{ secrets.GH_PAT }}@github.com/BlueBrain/brain-indexer-test-data.insteadOf https://github.com/BlueBrain/brain-indexer-test-data.git
+
     - uses: actions/checkout@v3
       with:
         submodules: true
-        token: ${{ secrets.GH_PAT }}
 
     - name: Install Ubuntu system dependencies
       if: startsWith(matrix.os, 'ubuntu-')
