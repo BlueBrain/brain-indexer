@@ -2,10 +2,8 @@ name: Run Python tests and lint
 
 on:
   workflow_run:
-    workflows:
-      - Cache Boost
-    types:
-      - completed
+    workflows: ['Cache Boost']
+    types: ['completed']
 
 jobs:
   build:
