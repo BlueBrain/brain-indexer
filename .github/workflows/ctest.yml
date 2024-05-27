@@ -16,7 +16,7 @@ jobs:
       # with:
       #   submodules: true
 
-    - name: FIXME manual submodule checkout 🤌
+    - name: FIXME manual submodule checkout
       run: |
         git config --global url.https://x-access-token:${{ secrets.GH_PAT }}@github.com/BlueBrain/brain-indexer-test-data.insteadOf https://github.com/BlueBrain/brain-indexer-test-data.git
         git submodule update --init --recursive
