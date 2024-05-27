@@ -54,18 +54,18 @@ pip install ./brain-indexer/
 
 ## Where to start
 
-We included plenty of examples in the `examples` folder and there's also a
-`basic_tutorial.ipynb` and an `advanced_tutorial.ipynb` Jupyter Notebook which
-which provide a hands-on introduction to brain-indexer.
+We provide two Jupyter notebooks with a hands-on introduction to brain-indexer:
+- A basic introduction in [`basic_tutorial.ipynb`](./examples/basic_tutorial.ipynb)
+- More complex use-cases in [`advanced_tutorial.ipynb`](./examples/advanced_tutorial.ipynb)
 
 ### Examples
 
-Some examples on how to use brain-indexer are available in the `examples` folder:
-- `segment_index.py`: simple indexing and querying of a segment index
-- `synapses_index.py`: simple indexing and querying of a synapse index
-- `segment_index_sonata.py`: indexing and querying of a segment index using SONATA files
-- `segment_multi_index_sonata.py`: indexing and querying of a segment multi-index using SONATA files
-- `synapse_multi_index_sonata.py`: indexing and querying of a synapse multi-index using SONATA files
+More examples on how to use brain-indexer are available in the [`examples`](./examples) folder:
+- [`segment_index.py`](./examples/segment_index.py): simple indexing and querying of a segment index
+- [`synapses_index.py`](./examples/synapses_index.py): simple indexing and querying of a synapse index
+- [`segment_index_sonata.py`](./examples/segment_index_sonata.py): indexing and querying of a segment index using SONATA files
+- [`segment_multi_index_sonata.py`](./examples/segment_multi_index_sonata.py): indexing and querying of a segment multi-index using SONATA files
+- [`synapse_multi_index_sonata.py`](./examples/synapse_multi_index_sonata.py): indexing and querying of a synapse multi-index using SONATA files
 
 Also, the `tests` folder contains some tests that double also as examples on how to use
 brain-indexer.
