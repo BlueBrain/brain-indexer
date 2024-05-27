@@ -1,7 +1,5 @@
 # brain-indexer
 
-## What is it?
-
 brain-indexer is a library for efficient spatial queries on large datasets (TBs
 and more). It is currently based on `boost::rtree`.
 
@@ -9,25 +7,58 @@ It provides a high level Python API for indexes of simple geometric shapes
 (boxes, spheres and cylinders) and the required functionalities to
 create indexes of synapses and morphologies.
 
+## Installation
+
+### From PyPI
+
+A version of brain-indexer without processing on multiple nodes is available on PyPI and
+can easily be installed with:
+```console
+pip install brain-indexer
+```
+
+### From source
+
+brain-indexer requires Boost with a minimum version of 1.79.0, but preferably 1.80.0 or
+newer.  If your system does not provide such a version, one can install a more recent one
+into `/opt/boost/` as follows:
+```console
+wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.85.0/source/boost_1_85_0.tar.bz2 | tar xjf -
+cd boost_1_85_0
+./bootstrap.sh
+./b2 --prefix=/opt/boost --with-serialization --with-filesystem --with-test install
+```
+When using a custom Boost installation like this, **it is imperative to set the following
+environment variables to make sure that all libraries are found**:
+```console
+export SKBUILD_CMAKE_DEFINE="CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON"
+export CMAKE_PREFIX_PATH=/opt/boost
+```
+
+If multi-node processing via MPI is required, the following system dependencies have to be
+installed:
+```console
+sudo apt-get install -y libopenmpi-dev
+```
+
+Then the installation of brain-indexer can proceed as usual, either with MPI support:
+```console
+gh repo clone BlueBrain/brain-indexer
+pip install "./brain-indexer[mpi]"
+```
+or without support:
+```console
+gh repo clone BlueBrain/brain-indexer
+pip install ./brain-indexer/
+```
+
 ## Where to start
 
 We included plenty of examples in the `examples` folder and there's also a
 `basic_tutorial.ipynb` and an `advanced_tutorial.ipynb` Jupyter Notebook which
-which provide a hands-on introduction to SI.
+which provide a hands-on introduction to brain-indexer.
 
-There is also a [User Guide][1], which provides detailed descriptions of all
-concepts and includes an API documentation.
-
-[1]: https://bbpteam.epfl.ch/documentation/projects/brain-indexer/latest/index.html
-
-## How to install
-
-Please see [Installation][2].
-
-[2]: https://bbpteam.epfl.ch/documentation/projects/brain-indexer/latest/installation.html
-
-
-## Examples
+### Examples
 
 Some examples on how to use brain-indexer are available in the `examples` folder:
 - `segment_index.py`: simple indexing and querying of a segment index
@@ -38,3 +69,11 @@ Some examples on how to use brain-indexer are available in the `examples` folder
 
 Also, the `tests` folder contains some tests that double also as examples on how to use
 brain-indexer.
+
+## Acknowledgment
+
+The development of this software was supported by funding to the Blue Brain Project,
+a research center of the École polytechnique fédérale de Lausanne (EPFL),
+from the Swiss government's ETH Board of the Swiss Federal Institutes of Technology.
+
+Copyright (c) 2019-2024 Blue Brain Project/EPFL
