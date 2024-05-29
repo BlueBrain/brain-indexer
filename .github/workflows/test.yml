@@ -54,7 +54,6 @@ jobs:
 
     - name: Test with tox
       run: |
-        ls -l $PWD/boost
-        export BOOST_ROOT=$PWD/boost
         export CMAKE_PREFIX_PATH=$PWD/boost
+        export SKBUILD_CMAKE_DEFINE="CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON"
         tox -e ${{ matrix.toxenv }}
