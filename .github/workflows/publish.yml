@@ -71,7 +71,7 @@ jobs:
         export CMAKE_PREFIX_PATH=$PWD/boost
         export SKBUILD_CMAKE_DEFINE="CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON"
         python -m pip install dist/*
-        python -m pip install pytest mock
+        python -m pip install pytest mock mpi4py
 
     - name: Run tests
       run: |
