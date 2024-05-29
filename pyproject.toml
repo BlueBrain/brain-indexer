@@ -2,7 +2,7 @@
 name = "brain-indexer"
 description = "A spatial index implementation for spheres, morphologies and synapses"
 authors = [{ name="Blue Brain Project", email = "bbp-ou-hpc@epfl.ch" } ]
-license = {text = "Blue Brain Project Licence"}
+license = {"file" = "LICENSE.txt"}
 # maintainer is the field chosen for docs `contributors`
 maintainers = [{name="Fernando Pereira"}, {name="Antonio Bellotta"}, {name="Luc Dominic Grosheintz-Laval"}]
 dynamic = ["version"]
