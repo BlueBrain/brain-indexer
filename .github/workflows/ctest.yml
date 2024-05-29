@@ -39,13 +39,6 @@ jobs:
         cmake --build build
 
     - uses: ./.github/actions/mpi-setup
-    - name: Set up MPI for Github Actions
-      run: |
-        mkdir -p "$HOME/.openmpi"
-        cat <<EOF > "$HOME/.openmpi/mca-params.conf"
-        rmaps_base_oversubscribe = true
-        rmaps_default_mapping_policy = :oversubscribe
-        EOF
 
     - name: Run CTest
       run: |

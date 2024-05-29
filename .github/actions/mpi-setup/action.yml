@@ -5,6 +5,7 @@ runs:
   using: "composite"
   steps:
   - name: Set up MPI for Github Actions
+    shell: bash
     run: |
       mkdir -p "$HOME/.openmpi"
       cat <<EOF > "$HOME/.openmpi/mca-params.conf"
