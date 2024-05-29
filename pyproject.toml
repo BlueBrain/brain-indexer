@@ -78,6 +78,7 @@ test-command = ["python -m pytest {project}/tests"]
 
 [tool.cibuildwheel.linux]
 before-all = """
+yum install -y wget
 wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.85.0/source/boost_1_85_0.tar.bz2 | tar xjf -
 cd boost_1_85_0
 ./bootstrap.sh
