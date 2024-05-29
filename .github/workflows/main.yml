@@ -15,14 +15,11 @@ jobs:
         boost_minor: [85]
 
     steps:
-    - name: Cache Boost
+    - uses: ./.github/actions/boost-cache
       id: cache-boost
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-boost
       with:
-        path: ${{ github.workspace }}/boost
-        key: ${{ matrix.os }}-boost-${{ matrix.boost_minor }}
+        os: ${{ matrix.os }}
+        boost_minor: ${{ matrix.boost_minor }}
 
     - name: Install Boost
       if: steps.cache-boost.outputs.cache-hit != 'true'

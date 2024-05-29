@@ -27,20 +27,18 @@ jobs:
       run: |
         brew install ninja openmpi
 
-    - name: Cache Boost
+    - uses: ./.github/actions/boost-cache
       id: cache-boost
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-boost
       with:
-        path: ${{ github.workspace }}/boost
-        key: ${{ matrix.os }}-boost-${{ matrix.boost_minor }}
+        os: ${{ matrix.os }}
+        boost_minor: ${{ matrix.boost_minor }}
 
     - name: Configure and build
       run: |
         cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=$PWD/boost .
         cmake --build build
 
+    - uses: ./.github/actions/mpi-setup
     - name: Set up MPI for Github Actions
       run: |
         mkdir -p "$HOME/.openmpi"

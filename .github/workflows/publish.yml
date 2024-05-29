@@ -51,28 +51,18 @@ jobs:
         name: dist
         path: dist/
 
-    - name: Cache Boost
+    - uses: ./.github/actions/boost-cache
       id: cache-boost
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-boost
       with:
-        path: ${{ github.workspace }}/boost
-        # FIXME this needs to match the main.yml workflow cache step
-        key: ubuntu-latest-boost-85
+        os: ubuntu-latest
+        boost_minor: 85
 
     - name: Install system dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y libopenmpi-dev
 
-    - name: Set up MPI for Github Actions
-      run: |
-        mkdir -p "$HOME/.openmpi"
-        cat <<EOF > "$HOME/.openmpi/mca-params.conf"
-        rmaps_base_oversubscribe = true
-        rmaps_default_mapping_policy = :oversubscribe
-        EOF
+    - uses: ./.github/actions/mpi-setup
 
     - name: Install package, clean local directory
       run: |
@@ -83,7 +73,7 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest tests
+        pytest -n 3 tests
 
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
