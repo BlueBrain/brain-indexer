@@ -5,12 +5,17 @@ inputs:
     required: true
   os:
     required: true
+outputs:
+  cache-hit:
+    description: "Indicates if caching was successful"
+    value: ${{ steps.cache-boost.outputs.cache-hit }}
 
 runs:
   using: "composite"
   steps:
   - name: Cache Boost
     uses: actions/cache@v3
+    id: cache-boost
     env:
       cache-name: cache-boost
     with:
