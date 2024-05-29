@@ -68,13 +68,25 @@ SI_UNIT_TESTS="OFF"
 [tool.setuptools_scm]
 
 [tool.cibuildwheel]
-skip = ["pp*", "*-win32", "*-manylinux_i686", "*-musllinux_i686", "*-musllinux_x86_64", "*-musllinux_aarch64"]
+skip = ["cp3{6,7,8,9}-*", "pp*", "*-win32", "*-manylinux_i686", "*-musllinux_i686", "*-musllinux_x86_64", "*-musllinux_aarch64"]
 test-requires = ["pytest", "pytest-mpi"]
 test-command = ["python -m pytest {project}/tests"]
 
 [tool.cibuildwheel.config-settings]
 # for redistributable wheels, MPI support should not be enabled (until MPI settles on a standard ABI: https://github.com/mpi-forum/mpi-issues/issues/751)
 "cmake.define.SI_MPI"="OFF"
+
+[tool.cibuildwheel.linux]
+before-all = """
+wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.85.0/source/boost_1_85_0.tar.bz2 | tar xjf -
+cd boost_1_85_0
+./bootstrap.sh
+./b2 --prefix=/opt/boost --with-serialization --with-filesystem --with-test install
+"""
+
+[tool.cibuildwheel.linux.environment]
+CMAKE_PREFIX_PATH = "/opt/boost"
+SKBUILD_CMAKE_DEFINE = "CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON"
 
 [tool.cibuildwheel.macos]
 environment = { MACOSX_DEPLOYMENT_TARGET = "10.15" }
