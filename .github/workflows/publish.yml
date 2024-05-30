@@ -52,7 +52,6 @@ jobs:
         path: dist/
 
     - uses: ./.github/actions/boost-cache
-      id: cache-boost
       with:
         os: ubuntu-latest
         boost_minor: 85

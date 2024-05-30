@@ -1,0 +1,43 @@
+name: Run integration test and examples
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["ubuntu-latest"]
+        boost_minor: [85]
+        python-version: ['3.12']
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: true
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Ubuntu system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install libopenmpi-dev
+
+    - name: Download artifacts produced by the build_wheels job
+      uses: actions/download-artifact@v3
+      with:
+        pattern: cibw-wheels-*
+        path: dist/
+        merge-multiple: true
+
+    - name: Install a wheel
+      run: |
+        pip install brain-indexer --no-index --find-links file://$PWD/dist
+
+    - name: Run integration
+      run: |
+        python .ci/test_sonata_sanity.py
