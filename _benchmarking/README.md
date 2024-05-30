@@ -6,8 +6,6 @@ The content of this folder is provided as is and it's meant to provide a startin
 ## Files included
 
 Each of the bash script included in this folder will run a benchmark for a specific use case. The benchmarks are:
-* `FLAT_seg_benchmark.sh`: benchmark for indexing and querying segments using FLAT Index.
-* `FLAT_syn_benchmark.sh`: benchmark for indexing and querying synapses using FLAT Index.
 * `SI_seg_benchmark.sh`: benchmark for indexing and querying segments using BrainIndexer.
 * `SI_syn_benchmark.sh`: benchmark for indexing and querying synapses using BrainIndexer.
 
