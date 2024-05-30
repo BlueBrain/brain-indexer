@@ -40,6 +40,7 @@ jobs:
         brew install openmpi
 
     - uses: ./.github/actions/boost-cache
+      id: cache-boost
       with:
         os: ${{ matrix.os }}
         boost_minor: ${{ matrix.boost_minor }}
