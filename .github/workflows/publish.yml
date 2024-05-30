@@ -66,7 +66,7 @@ jobs:
 
     - name: Install package, clean local directory
       run: |
-        export CMAKE_PREFIX_PATH=$PWD/boost
+        export CMAKE_PREFIX_PATH=${{ steps.cache-boost.outputs.location }}
         export SKBUILD_CMAKE_DEFINE="CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON"
         python -m pip install dist/*
         python -m pip install mock mpi4py pytest pytest-mpi pytest-xdist

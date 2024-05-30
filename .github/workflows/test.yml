@@ -51,6 +51,6 @@ jobs:
 
     - name: Test with tox
       run: |
-        export CMAKE_PREFIX_PATH=$PWD/boost
+        export CMAKE_PREFIX_PATH=${{ steps.cache-boost.outputs.location }}
         export SKBUILD_CMAKE_DEFINE="CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON"
         tox -e ${{ matrix.toxenv }}

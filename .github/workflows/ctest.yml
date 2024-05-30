@@ -35,7 +35,7 @@ jobs:
 
     - name: Configure and build
       run: |
-        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=$PWD/boost .
+        cmake -B build -G Ninja -DCMAKE_PREFIX_PATH=${{ steps.cache-boost.outputs.location }} .
         cmake --build build
 
     - uses: ./.github/actions/mpi-setup

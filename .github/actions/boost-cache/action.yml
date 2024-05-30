@@ -9,6 +9,9 @@ outputs:
   cache-hit:
     description: "Indicates if caching was successful"
     value: ${{ steps.cache-boost.outputs.cache-hit }}
+  location:
+    description: "The path where Boost ends up"
+    value: "${{ github.workspace }}/boost"
 
 runs:
   using: "composite"
@@ -21,3 +24,12 @@ runs:
     with:
       path: ${{ github.workspace }}/boost
       key: ${{ inputs.os }}-boost-${{ inputs.boost_minor }}
+
+  - name: Install Boost
+    if: steps.cache-boost.outputs.cache-hit != 'true'
+    shell: bash
+    run: |
+      wget -qO- https://boostorg.jfrog.io/artifactory/main/release/1.${{ inputs.boost_minor }}.0/source/boost_1_${{ inputs.boost_minor }}_0.tar.bz2 | tar xjf -
+      cd boost_1_${{ inputs.boost_minor }}_0
+      ./bootstrap.sh
+      ./b2 --prefix=../boost --with-serialization --with-filesystem --with-test install
