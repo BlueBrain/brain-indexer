@@ -200,7 +200,7 @@ def _validated_single_population(options, circuit_config, population):
 
     elif options["synapses"]:
         properties = circuit_config.edge_population_properties(population)
-        supported_types = ["electrical", "chemical", "synapse_astrocyte"]
+        supported_types = ["electrical", "chemical", "synapse_astrocyte", "glialglial"]
         # These are needed to function with `libsonata`.
         supported_types += ["electrical_synapse", "chemical_synapse"]
 

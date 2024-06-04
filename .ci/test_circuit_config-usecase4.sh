@@ -2,22 +2,14 @@
 
 set -e
 
-SI_DIR="$(dirname "$(realpath "$0")")"/..
-source "${SI_DIR}/.ci/si_datadir.sh"
+cd ${SONATA_EXTENSION_DIR}/source/usecases/usecase4
 
-usecase_reldir="sonata_usecases/usecase4"
-
-pushd "${SI_DATADIR}/${usecase_reldir}"
-
-circuit_config_relfile="${usecase_reldir}/circuit_sonata.json"
-circuit_config_file="${circuit_config_file:-"${SI_DATADIR}/${circuit_config_relfile}"}"
-
-output_dir="$(mktemp -d ~/tmp-brain_indexer-XXXXX)"
+output_dir="$(mktemp -dt tmp-brain_indexer-XXXXX)"
 
 segments_spi="${output_dir}/circuit-segments"
 synapses_spi="${output_dir}/circuit-synapses"
 
-brain-indexer-circuit segments "${circuit_config_file}" \
+brain-indexer-circuit segments circuit_sonata.json \
     --populations NodeA NodeB \
     -o "${segments_spi}"
 
@@ -35,7 +27,7 @@ for result in results.values():
 
 EOF
 
-brain-indexer-circuit synapses "${circuit_config_file}" \
+brain-indexer-circuit synapses circuit_sonata.json \
     --populations NodeA__NodeA__chemical NodeB__NodeB__chemical \
     NodeA__NodeB__chemical NodeB__NodeA__chemical \
     VirtualPopA__NodeA__chemical VirtualPopB__NodeB__chemical \

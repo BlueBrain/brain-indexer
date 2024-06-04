@@ -41,3 +41,24 @@ jobs:
     - name: Run integration
       run: |
         python .ci/test_sonata_sanity.py
+
+    - uses: actions/checkout@v4
+      with:
+        repository: BlueBrain/sonata-extension
+        ref: 17be54d3d100f268d840565ac7d085e037d956a8
+        path: ../sonata-extension
+
+    - uses: ./.github/actions/mpi-setup
+
+    - name: Run usecase 1
+      run: |
+        export SONATA_EXTENSION_DIR=$PWD/../sonata-extension
+        sh .ci/test_circuit_config-usecase1.sh
+
+    - name: Run usecases 2-5
+      run: |
+        export SONATA_EXTENSION_DIR=$PWD/../sonata-extension
+        sh .ci/test_circuit_config-usecase2.sh
+        sh .ci/test_circuit_config-usecase3.sh
+        sh .ci/test_circuit_config-usecase4.sh
+        sh .ci/test_circuit_config-usecase5.sh

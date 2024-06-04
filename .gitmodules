@@ -1,9 +1,11 @@
 [submodule "3rdparty/pybind11"]
 	path = 3rdparty/pybind11
 	url = https://github.com/pybind/pybind11.git
+	shallow = true
 [submodule "3rdparty/zisa.sfc"]
 	path = 3rdparty/zisa.sfc
 	url = https://github.com/1uc/ZisaSFC.git
+	shallow = true
 [submodule "tests/data"]
 	path = tests/data
 	url = https://github.com/BlueBrain/brain-indexer-test-data.git

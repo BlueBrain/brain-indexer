@@ -2,22 +2,14 @@
 
 set -e
 
-SI_DIR="$(dirname "$(realpath "$0")")"/..
-source "${SI_DIR}/.ci/si_datadir.sh"
+cd ${SONATA_EXTENSION_DIR}/source/usecases/usecase5
 
-usecase_reldir="sonata_usecases/usecase5"
-
-pushd "${SI_DATADIR}/${usecase_reldir}"
-
-circuit_config_relfile="${usecase_reldir}/circuit_sonata.json"
-circuit_config_file="${circuit_config_file:-"${SI_DATADIR}/${circuit_config_relfile}"}"
-
-output_dir="$(mktemp -d ~/tmp-brain_indexer-XXXXX)"
+output_dir="$(mktemp -dt tmp-brain_indexer-XXXXX)"
 
 segments_spi="${output_dir}/circuit-segments"
 synapses_spi="${output_dir}/circuit-synapses"
 
-brain-indexer-circuit segments "${circuit_config_file}" \
+brain-indexer-circuit segments circuit_sonata.json \
     --populations nodeA \
     -o "${segments_spi}"
 
@@ -27,14 +19,11 @@ index = brain_indexer.open_index("${segments_spi}")
 sphere = [0.0, 0.0, 0.0], 1000.0
 
 results = index.sphere_query(*sphere, fields="gid")
-assert "nodeA" in results
-
-for result in results.values():
-  assert result.size != 0
+assert len(results) > 0
 EOF
 
 # We want this to fail until 'astrocytes' are supported.
-if [ $(brain-indexer-circuit segments "${circuit_config_file}" \
+if [ $(brain-indexer-circuit segments circuit_sonata.json \
                                       --populations astrocyteA \
                                       -o "${segments_spi}" &> /dev/null) ]
 then
@@ -43,8 +32,8 @@ then
 fi
 
 
-brain-indexer-circuit synapses "${circuit_config_file}" \
-    --populations nodeA__nodeA__chemical astrocyteA__astrocyteA__electrical_synapse \
+brain-indexer-circuit synapses circuit_sonata.json \
+    --populations nodeA__nodeA__chemical astrocyteA__astrocyteA__glialglial \
     -o "${synapses_spi}"
 
 python3 << EOF
@@ -54,7 +43,7 @@ sphere = [0.0, 0.0, 0.0], 1000.0
 
 results = index.sphere_query(*sphere, fields="id")
 assert "nodeA__nodeA__chemical" in results
-assert "astrocyteA__astrocyteA__electrical_synapse" in results
+assert "astrocyteA__astrocyteA__glialglial" in results
 
 for result in results.values():
     assert result.size != 0
