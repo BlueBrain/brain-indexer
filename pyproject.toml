@@ -1,6 +1,7 @@
 [project]
 name = "brain-indexer"
 description = "A spatial index implementation for spheres, morphologies and synapses"
+readme = "README.md"
 authors = [{ name="Blue Brain Project", email = "bbp-ou-hpc@epfl.ch" } ]
 license = {"file" = "LICENSE.txt"}
 # maintainer is the field chosen for docs `contributors`
