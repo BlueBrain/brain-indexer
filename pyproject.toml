@@ -10,13 +10,10 @@ dynamic = ["version"]
 
 classifiers = [
    "Development Status :: 3 - Alpha",
-   "Programming Language :: C++14",
+   "Programming Language :: C++",
    "Programming Language :: Python",
-   "Programming Language :: Python :: 3.6",
-   "Framework :: Boost",
-   "Framework :: PyBind11",
    "Topic :: Scientific/Engineering",
-   "License :: Other/Proprietary License",
+   "License :: OSI Approved :: Apache Software License",
 ]
 requires-python = ">=3.9"
 dependencies = ["numpy>=1.13.1",
