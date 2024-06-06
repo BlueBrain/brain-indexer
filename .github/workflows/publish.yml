@@ -119,16 +119,9 @@ jobs:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
 
     steps:
-    - name: Download artifacts produced by the build_sdist job
+    - name: Download artifacts produced by the build jobs
       uses: actions/download-artifact@v4
       with:
-        name: dist
-        path: dist/
-
-    - name: Download artifacts produced by the build_wheels job
-      uses: actions/download-artifact@v4
-      with:
-        pattern: cibw-wheels-*
         path: dist/
         merge-multiple: true
 
